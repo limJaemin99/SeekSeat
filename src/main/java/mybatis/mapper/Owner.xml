@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Owner">
+ 
+ 	<!-- 사장님 로그인 -->
+ 	<select id="login" parameterType="java.util.Map" resultType="int">
+ 		SELECT count(*)
+ 		FROM
+ 			owner
+ 		WHERE
+ 			id=#{id} and pw=#{pw}
+ 	</select>
+ 	
+ 	<!-- 사장님 회원가입 -->
+ 	<insert id="join" parameterType="Owner">
+ 		INSERT INTO
+			OWNER 
+		VALUES (#{id}, #{pw}, #{name},#{member_type}, #{tel}, #{email})
+ 	</insert>
+ 	
+ 	<!-- 사장님 ID 중복체크 -->
+ 	<select id="doubleCheck" parameterType="String">
+		SELECT 
+			count(*) 
+		FROM
+			OWNER
+		WHERE
+			id=#{id}
+	</select>
+	
+	<!-- 사장님 정보 수정 -->
+ 	<update id="update" parameterType="Owner">
+		UPDATE OWNER
+		SET
+			tel = #{tel}, email = #{email}
+		WHERE 
+			id = #{id}
+	</update>
+	
+	<!-- 사장님 정보 출력 -->
+	<select id="select" resultType="Owner" parameterType="String">
+		SELECT * 
+		FROM
+			owner
+		WHERE
+			id=#{id}
+	</select>
+	
+	<!-- 아이디/이메일 존재 여부 -->
+	<select id="isExist" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM
+			owner
+		WHERE
+			id=#{id} AND email=#{email}
+	</select>
+	
+	<!-- 비밀번호 재설정 -->
+	<select id="passwordUpdate" parameterType="java.util.Map">
+		UPDATE owner
+		SET
+			pw = #{pw}
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- 전체 기업 회원 정보 -->
+	<select id="ownerSelect" resultType="Owner">
+		SELECT * 
+		FROM Owner
+	</select>
+	
+ </mapper>

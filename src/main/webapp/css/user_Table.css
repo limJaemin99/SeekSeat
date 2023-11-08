@@ -1,0 +1,40 @@
+@charset "UTF-8";
+.seat {
+   font-size: 20px;
+   width: 60px;
+   height: 60px;
+   background-color: gray;
+   color: white;
+   text-align: center;
+   line-height: 50px;
+   cursor: pointer;
+   margin-right: 10px;
+   margin-bottom: 10px;
+   position: absolute;
+}
+
+#seat-container {
+   display: flex;
+   flex-direction: row;
+   width: 1000px;
+   border: 2px solid #333;
+   height: 600px;
+}
+
+.seat.selected {
+   background-color: #3498db;
+   color: #fff;
+}
+
+#Reservation {
+   width: 140px;
+   margin-top: 10px;
+   background-color: #688EC0;
+   color: white;
+   padding: 10px 20px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s ease; /* 배경색 변경 시 부드럽게 변화하도록 설정 */
+   font-size: 15px;
+}       

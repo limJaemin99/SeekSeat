@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="mybatis/db.properties"/>
+	<typeAliases>
+		<typeAlias type="org.vo.AdminInfo" alias="AdminInfo"/>
+		<typeAlias type="org.vo.Community" alias="Community"/>
+		<typeAlias type="org.vo.Customer" alias="Customer"/>
+		<typeAlias type="org.vo.Menu" alias="Menu"/>
+		<typeAlias type="org.vo.Owner" alias="Owner"/>
+		<typeAlias type="org.vo.QnA" alias="QnA"/>
+		<typeAlias type="org.vo.Reply" alias="Reply"/>
+		<typeAlias type="org.vo.Reservation" alias="Reservation"/>
+		<typeAlias type="org.vo.Review" alias="Review"/>
+		<typeAlias type="org.vo.Seat" alias="Seat"/>
+		<typeAlias type="org.vo.StoreInfo" alias="StoreInfo"/>
+		<typeAlias type="org.vo.StoreTable" alias="StoreTable"/>
+		<typeAlias type="org.vo.StoreTable" alias="AfterVisit"/>
+		<typeAlias type="org.vo.Favorite" alias="Favorite"/>
+	</typeAliases>
+	
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+  	<!-- 매퍼 파일 설정 -->
+    <mapper resource="mybatis/mapper/AdminInfo.xml"/>
+    <mapper resource="mybatis/mapper/Community.xml"/>
+    <mapper resource="mybatis/mapper/Customer.xml"/>
+    <mapper resource="mybatis/mapper/Menu.xml"/>
+    <mapper resource="mybatis/mapper/Owner.xml"/>
+    <mapper resource="mybatis/mapper/QnA.xml"/>
+    <mapper resource="mybatis/mapper/Reply.xml"/>
+    <mapper resource="mybatis/mapper/Reservation.xml"/>
+    <mapper resource="mybatis/mapper/Review.xml"/>
+    <mapper resource="mybatis/mapper/StoreInfo.xml"/>
+    <mapper resource="mybatis/mapper/StoreTable.xml"/>
+    <mapper resource="mybatis/mapper/AfterVisit.xml"/>
+    <mapper resource="mybatis/mapper/Favorite.xml"/>
+  </mappers>
+</configuration>

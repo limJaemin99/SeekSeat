@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Favorite">
+
+	<!-- 즐겨찾기 목록 출력 -->
+	<select id="selectList" parameterType="String" resultType="Favorite">
+		SELECT *
+		FROM
+			Favorite
+		WHERE
+			user_id=#{user_id}
+	</select>
+	
+	<!-- 이미 등록되어있는지 확인 -->
+	<select id="selectOne" parameterType="Favorite" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			Favorite
+		WHERE
+			user_id=#{user_id} AND store_id=#{store_id}
+	</select>
+	
+	<!-- 즐겨찾기에 추가 -->
+	<insert id="insert" parameterType="Favorite">
+		INSERT INTO
+			Favorite
+		VALUES (#{user_id} , #{store_id} , #{store_name})
+	</insert>
+	
+	<!-- 즐겨찾기에서 삭제 -->
+	<delete id="delete" parameterType="Favorite">
+		DELETE FROM
+			Favorite
+		WHERE
+			user_id=#{user_id} AND store_id=#{store_id}
+	</delete>
+	
+</mapper>

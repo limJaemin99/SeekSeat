@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="StoreInfo">
+    
+    <!-- store_id 생성 -->
+    <select id="storeIdSeq" resultType="String">
+       SELECT 'store'||seq_Store_id.nextval
+       FROM dual
+    </select>
+    
+	<!-- 매장 등록 -->
+    <insert id="insert" parameterType="StoreInfo">
+		INSERT INTO
+			storeinfo
+		VALUES
+			(#{store_id},#{id},#{name},#{category}
+			,#{store_tel},#{address},
+			to_date('2023-01-01 '|| #{openTime}||':00','yyyy-mm-dd HH24:MI:SS'),
+			to_date('2023-01-01 '|| #{closeTime}||':00','yyyy-mm-dd HH24:MI:SS'),
+			#{closedDays},#{content},#{mainPictureUrl},#{pictureUrl},#{menuPictureUrl},#{station},#{hashtag})
+    </insert>
+    
+    <!-- 지정 매장 정보 변경 -->
+    <update id="update" parameterType="StoreInfo">
+		UPDATE storeinfo 
+		SET
+			category=#{category}, address=#{address}
+			,openTime=to_date('2023-01-01 '|| #{openTime}||':00','yyyy-mm-dd HH24:MI:SS')
+			,closeTime=to_date('2023-01-01 '|| #{closeTime}||':00','yyyy-mm-dd HH24:MI:SS')
+			,closedDays=#{closedDays}, content=#{content}, mainPictureUrl=#{mainPictureUrl}
+			,pictureUrl=#{pictureUrl}, menuPictureUrl=#{menuPictureUrl},station=#{station},hashtag=#{hashtag}
+		WHERE
+			store_id=#{store_id}
+    
+    </update>
+    
+    <!-- 지정 매장 삭제 -->
+    <delete id="delete" parameterType="String">
+		DELETE FROM
+			storeinfo
+		WHERE
+			store_id=#{store_id}
+    
+    </delete>
+    
+    <!-- 모든 매장 조회 -->
+    <select id="selectAll" resultType="StoreInfo">
+		SELECT * 
+		FROM storeinfo
+    </select>
+    <select id="selectDesc" resultType="StoreInfo">
+		SELECT rownum, a.*
+		FROM (SELECT * FROM STOREINFO) a
+		ORDER BY rownum DESC
+    </select>
+
+    <!-- 사장(owner) 별 매장 조회 -->
+    <select id="selectByOwner" parameterType="String" resultType="StoreInfo">
+		SELECT * 
+		FROM
+			storeinfo
+		WHERE
+			id = #{id}
+    </select>
+    
+    <select id="selectByStoreId" parameterType="String" resultType="StoreInfo">
+		SELECT *
+		FROM
+			storeinfo
+		WHERE
+			store_id = #{store_id}
+    </select>
+    
+    <!-- 역 이름으로 리스트 출력 -->
+    <select id="selectByStation" parameterType="String" resultType="StoreInfo">
+		SELECT *
+		FROM
+			STOREINFO
+		WHERE
+			station = #{station}
+    </select>
+    
+    <select id="countStore" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM
+			STOREINFO
+		WHERE
+			ID = #{ID}
+    </select>
+    
+ </mapper>
+ 

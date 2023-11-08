@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QnA">
+
+	<!-- 회원 1:1 문의 -->
+	<insert id="user_insert" parameterType="QnA">
+		INSERT INTO
+			QnA(writeNo, user_id, title, content,createdDate,status)
+		VALUES (seq_QnA.nextval,#{user_id},#{title},#{content},sysdate,#{status})
+	</insert>
+   
+	<!-- 사장님 1:1 문의 -->
+	<insert id="owner_insert" parameterType="QnA">
+		INSERT INTO
+			QnA(writeNo, owner_id, title, content,createdDate,status)
+		VALUES (seq_QnA.nextval,#{owner_id},#{title},#{content},sysdate,#{status})
+	</insert>
+
+	<!-- 1:1 문의글 리스트 출력 -->
+	<select id="selectList" resultType="QnA">
+		SELECT *
+		FROM QnA
+	</select>
+
+	<!-- 선택한 문의글 출력 -->
+	<select id="selectOne" resultType="QnA" parameterType="int">
+		SELECT *
+		FROM
+			QnA
+		WHERE
+			writeNo=#{writeNo}
+	</select>
+
+	<!-- 1:1 문의 답글 -->
+	<update id="update" parameterType="QnA">
+		UPDATE
+			QnA
+		SET
+			admin_id = #{admin_id}, answer = #{answer}, answerDate = sysdate, status=#{status}
+		WHERE
+			writeNo = #{writeNo}
+	</update>
+
+	<!-- [User] id별 문의글 출력 -->
+	<select id="selectUserQnA" parameterType="String" resultType="QnA">
+		SELECT *
+		FROM
+			QnA
+		WHERE
+			user_id=#{user_id}
+	</select>
+
+	<!-- [Owner] id별 문의글 출력 -->
+	<select id="selectOwnerQnA" parameterType="String" resultType="QnA">
+		SELECT *
+		FROM
+			QnA
+		WHERE
+			owner_id=#{owner_id}
+	</select>
+
+	<!-- 글 목록 rownum으로 불러오기 (user_id) -->
+	<select id="pagelistByUserId" resultType="QnA" parameterType="java.util.Map">
+		SELECT *
+		FROM
+			(SELECT rownum r, f.* FROM
+				(SELECT * FROM QnA WHERE user_id = #{user_id} ORDER BY writeNo DESC) f)
+		WHERE
+			r BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 글 목록 rownum으로 불러오기 (owner_id) -->
+	<select id="pagelistByOwnerId" resultType="QnA" parameterType="java.util.Map">
+		SELECT *
+		FROM
+			(SELECT rownum r, f.* FROM
+				(SELECT * FROM QnA WHERE owner_id = #{owner_id} ORDER BY writeNo DESC) f)
+		WHERE
+			r BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 글 목록 rownum으로 불러오기 -->
+	<select id="pagelist" resultType="QnA"   parameterType="java.util.Map">
+		SELECT *
+		FROM
+			(SELECT rownum r ,f.* FROM
+				(SELECT * FROM QnA ORDER BY writeNo DESC) f)
+		WHERE
+			r BETWEEN #{start} AND #{end}
+	</select>
+   
+   	<!-- (일반회원)글 목록 rownum으로 불러오기 -->
+	<select id="pagelistUser" resultType="QnA"   parameterType="java.util.Map">
+		SELECT *
+		FROM
+			(SELECT rownum r ,f.* FROM
+				(SELECT * FROM QnA WHERE user_id is not null ORDER BY writeNo DESC) f)
+		WHERE
+			r BETWEEN #{start} AND #{end}
+	</select>
+   
+    <!-- (일반회원)글 목록 rownum으로 불러오기 -->
+	<select id="pagelistOwner" resultType="QnA"   parameterType="java.util.Map">
+		SELECT *
+		FROM
+			(SELECT rownum r ,f.* FROM
+				(SELECT * FROM QnA WHERE owner_id is not null ORDER BY writeNo DESC) f)
+		WHERE
+			r BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- (관리자) 전체 글 갯수 -->
+	<select id="count" resultType="int">
+		SELECT count(*)
+		FROM QnA
+	</select>
+
+	<!-- (일반회원) 전체 글 갯수 -->
+	<select id="userCount" resultType="int">
+		SELECT count(*)
+		FROM
+			QnA
+		WHERE
+			user_id is not null
+	</select>
+
+	<!-- (사장님) 전체 글 갯수 -->
+	<select id="ownerCount" resultType="int">
+		SELECT count(*)
+		FROM
+			QnA
+		WHERE
+			owner_id IS NOT NULL
+	</select>
+   
+	<!-- (일반회원) 1:1 문의글 리스트 출력 -->
+	<select id="userList" resultType="QnA">
+		SELECT * 
+		FROM
+			QnA
+		WHERE
+			user_id IS NOT NULL
+	</select>
+    
+    <!-- (사장님) 1:1 문의글 리스트 출력 -->
+    <select id="ownerList" resultType="QnA">
+		SELECT * 
+		FROM
+			QnA
+		WHERE
+			owner_id IS NOT NULL
+    </select>
+
+</mapper>

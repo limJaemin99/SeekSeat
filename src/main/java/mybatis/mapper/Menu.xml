@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Menu">
+ 	
+ 	<!-- 메뉴 출력 -->
+ 	<select id="menuList" parameterType="String" resultType="Menu">
+ 		SELECT *
+ 		FROM
+ 			Menu
+ 		WHERE
+ 			store_id=#{store_id}
+ 	</select>
+ 	
+ 	<!-- 메뉴 등록 -->
+	<insert id="insert" parameterType="java.util.Map">
+    <foreach collection="menuList" item="menu" open="INSERT ALL " close="SELECT * FROM DUAL" separator=" " >
+    INTO Menu (menu_name, price, content, best, store_id, menuPictureUrl)
+    VALUES
+        (#{menu.menu_name}, #{menu.price}, #{menu.content}, #{menu.best}, #{menu.store_id},#{menu.menuPictureUrl})
+    </foreach>
+		</insert>
+
+ 	
+ 	<!-- 메뉴 수정 -->
+ 	<update id="update" parameterType="java.util.Map">
+ 	<foreach collection="menuList" item="menu" separator=";" open="DECLARE BEGIN" close="; END;">
+ 		UPDATE 
+ 			Menu
+ 		SET
+ 			price=#{menu.price} , content=#{menu.content} , best=#{menu.best}, menuPictureUrl=#{menu.menuPictureUrl, jdbcType=VARCHAR, javaType=String, mode=IN, typeHandler=org.apache.ibatis.type.StringTypeHandler}
+ 		WHERE
+ 			menu_name=#{menu.menu_name} AND store_id=#{menu.store_id}
+ 			</foreach>
+ 	</update>
+ 	
+ 	<!-- 메뉴 삭제 -->
+ 	<delete id="delete" parameterType="String">
+ 		DELETE FROM
+ 			Menu
+ 		WHERE
+ 			menu_name=#{menu_name}
+ 	</delete>
+ 	
+ 	<!-- store_id 별 매뉴 조회 -->
+ 	<select id="selectMenuByOwner" parameterType="String" resultType="Menu">
+ 		SELECT * 
+ 		FROM
+ 			Menu
+ 		WHERE
+ 			store_id = #{store_id}
+ 	</select>
+ 	
+ </mapper>

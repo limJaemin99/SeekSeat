@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Reservation">
+ 	
+ 	<!-- 예약 번호 생성 -->
+ 	<select id="reserveNoSeq" resultType="String">
+ 		SELECT 'res'||seq_reservation.nextval
+ 		FROM dual
+ 	</select>
+ 	
+ 	<!-- 해당 매장의 예약 내역 출력 -->
+ 	<select id="selectReserve" parameterType="String" resultType="Reservation">
+ 		SELECT *
+ 		FROM
+ 			Reservation
+ 		WHERE
+ 			store_id=#{store_id}
+ 	</select>
+ 	
+ 	<!-- 예약 신청 -->
+ 	<insert id="regist" parameterType="Reservation">
+ 		INSERT INTO
+ 			Reservation
+ 		VALUES(#{reserveNo} , #{store_id} , #{user_id} , #{tableNo} , #{headCount} , #{reserveDate})
+ 	</insert>
+ 	
+ </mapper>

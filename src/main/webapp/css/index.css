@@ -1,0 +1,307 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+/* 
+   header 와 footer는 공통영역으로 빼서 사용 
+   font-size도..150%...가 아니고 픽셀로 하거나 vh로 해야함.
+*/
+
+/* ★★★★★★ problem(height 값이 100% 가 되면서 footer는 제일 하단을 찾을 수 있음 */
+html, body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	display: block;
+	width:100%;    /* ★★★★★★ html과 body 영역 (도화지) 에 값을 정해줄 것  넓이 100% height 100% */
+	height:100%;
+}
+
+/* problem end */
+
+body {
+    flex-direction: column;
+    min-height: 100vh; /* 화면 높이 100% 유지 */
+}
+
+/* body::-webkit-scrollbar {
+    width: 8px;  스크롤바의 너비
+    background-color: transparent; 배경 색상
+}
+
+body::-webkit-scrollbar-thumb {
+    height: 30%; 스크롤바의 길이
+    background:transparent; 스크롤바의 색상
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent; 스크롤바 트랙의 배경 색상
+} */
+header {
+	width: 100%;
+	height:5%;
+	box-sizing: border-box;
+	background-color:#325f8a;
+	color: #fff;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between; /* 좌우 정렬 */
+	align-items: center;
+}
+
+.menu-toggle{
+	float: left;
+}
+.login,.logouts {
+	float: right;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 20px;
+}
+
+/* 사이드바 */
+.sidebar ul {
+	list-style: none;
+}
+
+.menu-item {
+	display: block;
+	padding: 10px; /* 텍스트 주위에 여백 추가 */
+	text-decoration: none; /* 링크에 밑줄 제거 */
+	font-size: 16px; /* 텍스트 크기 설정 */
+	color: white;
+	font-weight: bold;
+}
+
+.menu-toggle {
+	cursor: pointer;
+	font-size: 40px;
+}
+
+.sidebar {
+	width: 250px;
+	min-height: 100%;
+	position: fixed;
+	 z-index: 2; /* 사이드바를 페이지 내용 위로 표시 */
+	visibility: visible;
+	top: 0;
+	left: -250px;
+	background-color: #7DA2C5;
+	transition: left 0.3s ease-in-out;
+	display: flex;
+}
+/* 검색 네비게이션 */
+nav {
+	width: 100%;
+	min-height: 50%;
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(to top, white, #3D74A9);
+}
+nav div {
+    margin: 10px; /* 각 div 요소 사이의 간격 설정 */
+}
+.t1{
+	color: black;
+	font-size: 100px;
+	font-family: Arial, sans-serif; /* 글꼴 설정 */
+    font-weight: bold; /* 글꼴 두께 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    line-height: 1.5; /* 줄 간격 설정 */
+}
+.t2{
+	color: #4b5058;
+	font-size: 20px;
+	font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5;
+}
+
+nav input[type="text"] {
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+
+/* 검색창 */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+input[type="search"] {
+  width: 100%;
+  max-width: 700px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#searchButton {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background-color: #325f8a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* section */
+section{
+	display: inline-block;
+	position: relative; /* 버튼 위치기준을 위한 부모요소 */
+    width: 100%;
+	/* height: 58%; */
+	box-sizing: border-box;
+	min-height: 50%;
+}
+
+/* 슬라이스 */
+.slide_show {
+	width: 600px;
+	height: 454px;
+	overflow: hidden;
+	/* position: absolute; */
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.slide_show .slide_list {
+	position: relative;
+	overflow: hidden;
+	width: 3300px;
+	height: 450px;
+}
+img{
+	width: 100%;
+    height: auto;
+}
+.slide_show .slide_list>div {
+	float: left;
+	width: 290px;
+	padding: 5px;
+	height: 174px;
+	box-sizing: content-box;
+	position: relative;
+}
+
+.slide_show .slide_list>div:before {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	color: #fff;
+	font-family: 'RIDIBatang';
+}
+/* 
+.slide_list>div:nth-child(3n+1)::before {
+	content: '01'
+}
+
+.slide_list>div:nth-child(3n+2)::before {
+	content: '02'
+}
+
+.slide_list>div:nth-child(3n+3)::before {
+	content: '03'
+} */
+
+.slide_show .slide_list>div img {
+	width: 100%;
+}
+
+.slide_btn {
+	position: absolute;/* 자식요소 */
+	bottom: 5%;
+	left: 50%;
+	transform: translatex(-50%);
+}
+
+.slide_btn button {
+	background: rgba(0, 0, 0, .4);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	color: #fff;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+
+.slide_btn button:hover {
+	background: rgba(0, 0, 0, .8);;
+}
+/* 커뮤니티 */
+.scrollable-section {
+	width: 100%;
+    min-height: 50%;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 10px;
+    /* margin-bottom: 20px; 섹션 여백 필요시*/
+    background: #f7f7f7;
+    position: unset;
+    display: inline-block;
+}
+
+/* footer css */
+footer {
+    width: 100%;
+    background-color: #325f8a;
+    color: white;
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+/* footer css end */
+
+/* responsive */ 
+
+/*@media (max-width: 768px) { 여기에 모바일 css 입력 후 }닫기*/
+
+@media (max-width: 768px) {
+	
+	/* footer{background:red;} */
+	/*header{djfejpj}
+	main{93uj9ewjo}*/
+}
+
+/* responsive end*/
+
+/* 
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,img { margin:0; padding:0; }
+html { width:100%; height:100%; }
+body,code { font:0.75em Verdana,Dotum,AppleGothic,sans-serif; color:#353535; background:#fff; }
+body { min-width:1480px; }
+ */
+
+
+/* Layout */
+/* #header { position:relative; border-bottom:1px solid #d8d8d8;  }
+
+#wrap { position:relative; width:1460px; margin:27px auto 0; }
+#container { width:1218px; margin:0 auto; *zoom:1; }
+#container:after { content:""; display:block; clear:both; }
+
+#contents { float:right; width:1014px; }
+#contents .visual img { max-width:100%; }
+
+
+#footer { position:relative; margin:40px 0 0 0; border-top:1px solid #e8e8e8;  border-bottom:45px solid #e8e8e8; }
+#footer:before { position:absolute; top:44px; left:0; content:""; width:100%; height:0; border-bottom:1px solid #e8e8e8; }
+#footer .inner { overflow:hidden; position:relative; width:1218px; margin:0 auto -45px; *zoom:1; }
+#footer .inner:after {  content:""; display:block; clear:both; }
+ */

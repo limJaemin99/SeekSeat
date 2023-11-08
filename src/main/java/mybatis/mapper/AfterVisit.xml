@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AfterVisit">
+	
+	<!-- 방문 완료한 예약 내역 조회 -->
+	<select id="selectHistory" parameterType="String" resultType="AfterVisit">
+		SELECT *
+		FROM
+			AfterVisit
+		WHERE
+			user_id=#{user_id}
+		ORDER BY
+			reserveDate
+	</select>
+	
+	<!-- 상태(예약취소,방문완료)별 예약 내역 조회 -->
+	<select id="selectByStatus" parameterType="java.util.Map" resultType="AfterVisit">
+		SELECT *
+		FROM
+			AfterVisit
+		WHERE
+			user_id=#{user_id} AND status=${status}
+	</select>
+	
+</mapper>

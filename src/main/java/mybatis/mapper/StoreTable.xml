@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StoreTable">
+	
+	<!-- 해당 매장 테이블 등록 -->
+	<insert id="registTable" parameterType="StoreTable">
+		INSERT INTO
+			StoreTable
+		VALUES(#{store_id} , #{headCount} , #{tableNo} , #{x} , #{y})
+	</insert>
+	
+	<!-- 해당 매장 테이블 조회 -->
+	<select id="selectStoreTable" parameterType="String" resultType="StoreTable">
+		SELECT *
+		FROM
+			StoreTable
+		WHERE
+			store_id=#{store_id}
+	</select>
+	
+	<!-- 해당 매장 테이블 전체 삭제 -->
+	<delete id="deleteAllTable" parameterType="String">
+		DELETE FROM
+			StoreTable
+		WHERE
+			store_id=#{store_id}
+	</delete>
+	
+</mapper>

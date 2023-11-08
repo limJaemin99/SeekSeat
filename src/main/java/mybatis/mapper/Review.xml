@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Review">
+ 	
+ 	<!-- 리뷰 작성 -->
+ 	<insert id="insert" parameterType="Review">
+ 		INSERT INTO
+ 			Review
+ 		VALUES
+			(seq_review.nextval , #{user_id} , #{store_id} , #{rating} , #{content} , #{reviewPictureUrl} , #{createdDate})
+ 	</insert>
+ 	
+ 	<!-- 리뷰 삭제 -->
+ 	<delete id="delete" parameterType="String">
+ 		DELETE
+ 			Review
+ 		WHERE
+ 			reviewNo=#{reviewNo}
+ 	</delete>
+ 	
+ </mapper>
